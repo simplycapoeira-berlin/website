@@ -96,13 +96,19 @@ sections:
     content:
       kicker: Train with us
       title: Where & when
-      lead: Just come by – no registration and no experience needed.
+      lead: No experience needed. Register for a free training below – or just come by.
       free:
         title: First month free
         items:
           - Comfortable sports clothes (long pants recommended)
           - Clean indoor sports shoes
           - Water & a good mood
+        register:
+          text: Register for a free training
+          url: https://forms.gle/f6yGyp7FZf9YAoEU8
+          qr: /uploads/probetraining-qr.svg
+          qr_alt: QR code for the free training registration form
+          qr_note: Or scan to register on your phone
 
   - block: sc_kids
     id: kids

@@ -24,6 +24,17 @@
       <ul>
         {{ range .items }}<li>{{ . }}</li>{{ end }}
       </ul>
+      {{ with .register }}
+      <div class="sc-free__register">
+        <a class="sc-free__btn" href="{{ .url }}" target="_blank" rel="noopener">{{ .text }} →</a>
+        {{ with .qr }}
+        <div class="sc-free__qr">
+          <img src="{{ . | relURL }}" alt="{{ $.wcBlock.content.free.register.qr_alt }}" width="84" height="84" loading="lazy">
+          <span>{{ $.wcBlock.content.free.register.qr_note }}</span>
+        </div>
+        {{ end }}
+      </div>
+      {{ end }}
     </div>
     {{ end }}
   </div>

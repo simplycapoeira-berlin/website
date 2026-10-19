@@ -460,6 +460,56 @@ h1, h2, h3, h4 {
   }
 }
 
+// Registration (Google Form) inside the free-month card
+.sc-free__register {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.sc-free__btn {
+  display: block;
+  background: var(--sc-black);
+  color: #fff !important;
+  text-align: center;
+  font-weight: 800;
+  font-size: 0.95rem;
+  padding: 0.7rem 1rem;
+  border-radius: 999px;
+  text-decoration: none !important;
+  transition: transform 0.15s ease;
+
+  &:hover,
+  &:focus-visible {
+    transform: translateY(-1px);
+  }
+}
+
+.sc-free__qr {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 0.85rem;
+  font-size: 0.8rem;
+  line-height: 1.35;
+
+  img {
+    flex: none;
+    width: 84px;
+    height: 84px;
+    padding: 6px;
+    background: #fff;
+    border-radius: 8px;
+  }
+}
+
+// On phones the button is enough – nobody scans a code on the screen they're holding.
+@media (max-width: 575.98px) {
+  .sc-free__qr {
+    display: none;
+  }
+}
+
 @media (max-width: 991.98px) {
   .sc-trainings__grid {
     grid-template-columns: repeat(2, 1fr);

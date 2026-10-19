@@ -95,13 +95,19 @@ sections:
     content:
       kicker: Trainiere mit uns
       title: Wo & wann
-      lead: Komm einfach vorbei – ohne Anmeldung und ohne Vorerfahrung.
+      lead: Ohne Vorerfahrung. Melde dich unten zum kostenlosen Probetraining an – oder komm einfach vorbei.
       free:
         title: Erster Monat kostenlos
         items:
           - Bequeme Sportkleidung (lange Hose empfohlen)
           - Saubere Hallenschuhe
           - Wasser & gute Laune
+        register:
+          text: Zum Probetraining anmelden
+          url: https://forms.gle/f6yGyp7FZf9YAoEU8
+          qr: /uploads/probetraining-qr.svg
+          qr_alt: QR-Code zum Anmeldeformular für das Probetraining
+          qr_note: Oder scannen und am Handy anmelden
 
   - block: sc_kids
     id: kinder
