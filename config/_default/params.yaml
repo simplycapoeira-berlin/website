@@ -8,7 +8,7 @@
 appearance:
   theme_day: minimal
   theme_night:
-  font: native
+  font: sc
   font_size: L
 
 # SEO
@@ -35,16 +35,18 @@ marketing:
 header:
   navbar:
     enable: true
+    block: sc_navbar
     align: r
     show_logo: true
     show_language: false
-    show_day_night: true
+    show_day_night: false
     show_search: true
     highlight_active_link: false
 
 # Site footer
 
 footer:
+  block: sc_footer
   copyright:
     notice: '© {year} Simplesmente Capoeira e.V. This work is licensed under {license}'
     license:

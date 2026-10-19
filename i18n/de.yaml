@@ -1,0 +1,23 @@
+# Strings for the redesigned homepage blocks (layouts/partials/blocks/sc_*.html).
+sc_day_short_Monday: Mo
+sc_day_short_Tuesday: Di
+sc_day_short_Wednesday: Mi
+sc_day_short_Thursday: Do
+sc_day_short_Friday: Fr
+sc_day_short_Saturday: Sa
+sc_day_short_Sunday: So
+sc_group_kids: Kinder
+sc_group_adults: Erwachsene
+sc_day_Monday: Montag
+sc_day_Tuesday: Dienstag
+sc_day_Wednesday: Mittwoch
+sc_day_Thursday: Donnerstag
+sc_day_Friday: Freitag
+sc_day_Saturday: Samstag
+sc_day_Sunday: Sonntag
+sc_and: und
+sc_at: im
+sc_footer_contact: Kontakt
+sc_footer_news: News
+sc_footer_documents: Dokumente
+sc_play: Abspielen

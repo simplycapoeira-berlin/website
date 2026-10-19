@@ -18,51 +18,139 @@ seo:
 
 sections:
 
-  - block: hero
+  - block: sc_hero
     content:
-      title: |
-        Capoeira Berlin – Simplesmente Capoeira
-      image:
-        filename: sharing.jpg
-        alt_text: 'Capoeira Berlin – Trainingsgruppe von Simplesmente Capoeira Berlin e.V. übt Ginga, Tritte und Musik'
-      text: |
-        <br>
-        
-        Willkommen bei **Simplesmente Capoeira Berlin e.V.** – Deinem Verein für **Capoeira in Berlin**. Wir sind eine internationale Berlin-Capoeira-Gruppe und erforschen die afro-brasilianische Kunst aus **Bewegung, Akrobatik, Musik und Kampfkunst**. Wir trainieren mitten in Berlin in **Schöneberg**, **Kreuzberg** und **Mitte** – für [Erwachsene & Anfänger](#probetraining) und [Kinder](#kinder). Dein **erster Monat** Training ist **kostenlos** – komm einfach zu einem unserer [Trainingstermine](#trainings).
+      kicker: Capoeira in Berlin
+      title: 'Tanz, Akrobatik, Musik, Kampf und'
+      highlight: 'Spaß!'
+      text: 'Das ist Capoeira. Für Kinder und Erwachsene in Schöneberg, Kreuzberg und Mitte. Dein erster Monat ist kostenlos.'
+      button:
+        text: Kostenlos ausprobieren
+        url: '#trainings'
+      images:
+        - src: home/au.jpg
+          alt: 'Ein Capoeirista springt einen Aú (Rad) in der Luft, während der Kreis klatscht – Simplesmente Capoeira Berlin'
+          position: '60% center'
+        - src: home/roda-kick.jpg
+          alt: 'Zwei Spieler in der Roda: ein hoher Tritt geht über einen ausweichenden Spieler hinweg, beim Batizado in Berlin'
+          position: center
+        - src: home/kids.jpg
+          alt: 'Kinder von Simplesmente Capoeira Berlin in ihren Vereins-T-Shirts'
+          position: center
 
-  - block: contact
+  - block: sc_times_strip
+
+  - block: sc_tiles
+    id: was-ist-capoeira
+    content:
+      kicker: Was ist Capoeira?
+      title: Eine afro-brasilianische Kunst, die man spielt – nicht nur trainiert.
+      lead: Zwei Spieler begegnen sich in der Roda, einem Kreis aus singenden und klatschenden Menschen, angeführt vom Berimbau.
+      items:
+        - title: Bewegung
+          text: Ginga, Tritte und Ausweichbewegungen. Kraft, Beweglichkeit und Flow.
+          image:
+            src: home/au.jpg
+            alt: 'Capoeira-Bewegung: ein Aú (Rad) mitten in der Roda'
+            position: '55% center'
+        - title: Die Roda
+          text: Ein Spiel aus Frage und Antwort zwischen zwei Spielern.
+          image:
+            src: home/roda-kick.jpg
+            alt: 'Zwei Capoeiristas spielen in der Roda, die Gruppe schaut zu'
+            position: '58% center'
+        - title: Musik
+          text: Berimbau, Pandeiro, Atabaque und Lieder auf Portugiesisch.
+          image:
+            src: SC_example_horda.jpeg
+            alt: 'Berimbaus und ein Atabaque spielen beim Training für die Roda'
+            position: '85% center'
+        - title: Gemeinschaft
+          text: Eine internationale Gruppe – alle Altersstufen, alle Levels.
+          image:
+            src: welcome.jpg
+            alt: 'Gruppenfoto von Simplesmente Capoeira Berlin – Kinder und Erwachsene in der Halle'
+            position: 'center 60%'
+
+  - block: sc_videos
+    id: videos
+    content:
+      kicker: Anschauen
+      title: Capoeira in Aktion
+      lead: Von unseren Batizados und Rodas – mehr auf unserem YouTube-Kanal.
+      channel_url: https://www.youtube.com/@SimplesmenteCapoeiraBerlin
+      channel_text: Zum YouTube-Kanal →
+      videos:
+        - id: dm_Bwea-thM
+          title: Batizado e Troca de Cordas Berlin 2024
+        - id: 94x_-eeQqY4
+          title: First day welcome Roda
+        - id: orfPSga_t-c
+          title: Batizado e troca de cordas Berlin Germany 2025
+    design:
+      css_class: sc-section--grey
+
+  - block: sc_trainings
     id: trainings
     content:
-      title: Trainingsorte (MELO, KSG, TAM)
-      text: |-
-        Kommt zu unserem Training, Gäste sind immer willkommen und der **erste Monat ist kostenlos**. Zurzeit bieten wir je zwei [Trainingseinheiten für Erwachsene](#probetraining) und für [Kinder/Jugendliche](#kinder) in:
-          <br>**[MELO](https://maps.app.goo.gl/BPBgbh3EvnWAD4Fo7)**: Gymnastikhalle (oben) der **M**arie-**E**lisabeth-**L**üders-**O**berschule
-          <br>**[KSG](https://maps.app.goo.gl/MzPxUjBwu3oMrWGs6)**: oberen Sporthalle der **K**urt-**S**chumacher-**G**rundschule
-          <br>**[TAM](https://maps.app.goo.gl/rQE4FopjV2LYNTX46)**: Sporthalle des Interkulturellen Familienzentrums **tam**
+      kicker: Trainiere mit uns
+      title: Wo & wann
+      lead: Komm einfach vorbei – ohne Anmeldung und ohne Vorerfahrung.
+      free:
+        title: Erster Monat kostenlos
+        items:
+          - Bequeme Sportkleidung (lange Hose empfohlen)
+          - Saubere Hallenschuhe
+          - Wasser & gute Laune
 
-        > **Neu bei Capoeira?** [Alles zum Probetraining (1. Monat gratis) & was Du mitbringen solltest 👇](#probetraining)
-      address:
-        street: 'MELO: <a href="https://maps.app.goo.gl/BPBgbh3EvnWAD4Fo7" target="_blank" rel="noopener">Steinmetzstr. 79 (10783)</a><br>KSG: <a href="https://maps.app.goo.gl/MzPxUjBwu3oMrWGs6" target="_blank" rel="noopener">Puttkamerstr. 19 (10969)</a><br>TAM: <a href="https://maps.app.goo.gl/rQE4FopjV2LYNTX46" target="_blank" rel="noopener">Wilhelmstr. 116 – 117 (10963)</a>'
-        country: Germany
-        country_code: DE
-      office_hours:
-        - '**Kinder**'
-        - 'Dienstag und Donnerstag 17:00-18:30  MELO'
-        - 'Freitag 16:30-18:00  TAM'
-        - ''
-        - '**Erwachsene**'
-        - 'Dienstag 18:00-19:30  KSG'
-        - 'Freitag 20:00-21:30  MELO'
-      autolink: true
+  - block: sc_kids
+    id: kinder
+    content:
+      kicker: Für Kinder von ca. 6 bis 14
+      title: Capoeira für Kinder
+      lead: Du suchst **Capoeira für Kinder in Berlin**? In unserem Kindertraining lernen Kinder die afro-brasilianische Kunst aus Bewegung, Akrobatik, Musik und Kampfkunst mit viel Freude – mit Fokus auf Spaß, Koordination, Rhythmus und Selbstvertrauen.
+      items:
+        - Akrobatik und Balance – Schritt für Schritt
+        - Musik, Instrumente und Gesang
+        - Selbstvertrauen, Rhythmus und Fairness
+        - Unterricht auf Deutsch & Englisch
+      image:
+        src: home/kids-training.jpg
+        alt: 'Kinder beim gemeinsamen Capoeira-Training bei Simplesmente Capoeira Berlin'
+      faq_title: Häufige Fragen von Eltern
     design:
-      columns: '2'
+      css_class: sc-section--grey
+
+  - block: sc_events
+    content:
+      kicker: Aktuell
+      title: Events
+      count: 2
+
+  - block: sc_team
+    content:
+      kicker: Wer unterrichtet
+      title: Unser Team
+      user_groups:
+        - Trainer
+        - Supervision
+      link_text: Lerne das Team kennen →
+    design:
+      css_class: sc-section--grey
+
+  - block: sc_faq
+    id: faq
+    content:
+      kicker: FAQ
+      title: Fragen & Antworten
 
   - block: markdown
-    id: probetraining
+    id: about-capoeira
     content:
-      title: Capoeira Training in Berlin – Probemonat gratis & Standorte
-      subtitle: Bewegung, Akrobatik, Musik – für Anfänger, Fortgeschrittene, Kinder und Erwachsene
       text: |
+        <details class="sc-more">
+        <summary>Mehr über Capoeira in Berlin</summary>
+
         ## Capoeira in Berlin – Bewegung, Akrobatik & Musik
 
         Capoeira ist eine afro-brasilianische Kampfkunst, die **Bewegung, Akrobatik, Tanz, Musik und Kultur** in einer Praxis vereint. In unserem **Berlin-Capoeira-Verein** lernst Du die **Fundamente der Capoeira**: das grundlegende Bewegungsvokabular (Ginga, Esquiva, Au und weitere Floreios), Schläge und Tritte, **akrobatische Elemente**, Musikinstrumente (Berimbau, Pandeiro, Atabaque) und Lieder auf Portugiesisch. Capoeira trainiert Koordination, Kraft, Beweglichkeit, Rhythmus und Körpergefühl – und macht dabei richtig Spaß.
@@ -71,99 +159,15 @@ sections:
 
         Wir bieten **Capoeira Training in Berlin** an drei Standorten in **Schöneberg, Kreuzberg und Mitte** an – alle [Trainingszeiten oben](#trainings):
 
-        - **MELO** – [Marie-Elisabeth-Lüders-Oberschule, Steinmetzstr. 79, **10783 Berlin-Schöneberg**](https://maps.app.goo.gl/BPBgbh3EvnWAD4Fo7)
-        - **KSG** – [Kurt-Schumacher-Grundschule, Puttkamerstr. 19, **10969 Berlin-Kreuzberg**](https://maps.app.goo.gl/MzPxUjBwu3oMrWGs6)
-        - **TAM** – [Interkulturelles Familienzentrum tam, Wilhelmstr. 116–117, **10963 Berlin-Mitte / Kreuzberg**](https://maps.app.goo.gl/rQE4FopjV2LYNTX46)
-
         Ob Du nach **Capoeira Kreuzberg**, **Capoeira Schöneberg**, **Capoeira Mitte**, einer **akrobatischen Bewegungspraxis** oder **[Capoeira für Kinder in Berlin](#kinder)** suchst – bei uns bist Du richtig.
 
         ## Probemonat gratis: Einfach vorbeikommen!
 
         Du möchtest Capoeira kennenlernen? **Komm zum Probetraining** – Gäste sind immer herzlich willkommen und der **erste Monat Training ist kostenlos**. Vorkenntnisse und Anmeldung sind **nicht** erforderlich.
 
-        **Was Du mitbringen solltest:**
-        - Bequeme Sportkleidung (lange Hose empfohlen)
-        - Saubere Hallenschuhe
-        - Eine Wasserflasche und gute Laune
-
         Schreib uns über die [Kontaktseite](./contact/) oder komm einfach zu einem der [oben aufgeführten Trainingszeiten](#trainings) vorbei. Du suchst die Kindergruppe? Direkt zu **[Capoeira für Kinder in Berlin](#kinder)**.
-    design:
-      columns: '1'
 
-  - block: markdown
-    id: kinder
-    content:
-      title: Capoeira für Kinder in Berlin
-      subtitle: Spielerisch Bewegung, Akrobatik & Musik aus Brasilien für Kinder (ca. 6–14 Jahre)
-      text: |
-        Du suchst **Capoeira für Kinder in Berlin**? In unserem Kindertraining lernen Kinder Capoeira mit viel Freude in einer freundlichen Gruppe – eine afro-brasilianische Kunst aus **Bewegung, Akrobatik, Musik und Kampfkunst**. Wir fördern **Spaß, Koordination, Rhythmus, Gleichgewicht, Körpergefühl und Selbstvertrauen**.
-
-        ### Was Kinder bei uns lernen
-        - **Ginga, Grundtritte und Esquivas** – die Basis jeder Capoeira-**Bewegung**
-        - **Akrobatik und Gleichgewicht** (Rad / Au, einfache Floreios) – sicher und Schritt für Schritt
-        - **Musik & Instrumente** – Berimbau, Pandeiro, Atabaque und Lieder auf Portugiesisch
-        - **Roda-Etikette** – fair miteinander spielen im Capoeira-Kreis
-
-        ### Trainingszeiten Capoeira Kinder Berlin
-        Alle [Trainingszeiten oben](#trainings):
-
-        - **Dienstag & Donnerstag, 17:00–18:30 Uhr** – [MELO](https://maps.app.goo.gl/BPBgbh3EvnWAD4Fo7), Marie-Elisabeth-Lüders-Oberschule, Steinmetzstr. 79, **10783 Berlin-Schöneberg**
-        - **Freitag, 16:30–18:00 Uhr** – [TAM](https://maps.app.goo.gl/rQE4FopjV2LYNTX46), Interkulturelles Familienzentrum tam, Wilhelmstr. 116–117, **10963 Berlin-Mitte / Kreuzberg**
-
-        ### Häufige Fragen von Eltern
-        - **Ab welchem Alter kann mein Kind mitmachen?** Üblicherweise ab **ca. 6 Jahren**. Jüngere Geschwister können gerne mit einer Begleitperson schnuppern.
-        - **Ist die erste Einheit kostenlos?** Sogar besser – der **erste Monat Training (Probetraining) ist kostenlos**, ohne vorherige Anmeldung.
-        - **In welcher Sprache findet das Training statt?** Bilingual **Deutsch & Englisch** – Capoeira-Lieder werden auf Portugiesisch gesungen.
-        - **Was sollte mein Kind mitbringen?** Bequeme Sportkleidung (lange Hose empfohlen), saubere Hallenschuhe und eine Wasserflasche.
-
-        Komm einfach mit Deinem Kind zu einem der [oben genannten Trainingstermine](#trainings) vorbei oder [schreib uns](./contact/) – wir freuen uns auf Euch!
-    design:
-      columns: '1'
-
-  - block: collection
-    content:
-      title: Veranstaltungen 
-      subtitle:
-      text:
-      count: 2
-      filters:
-        author: ''
-        category: ''
-        exclude_featured: false
-        publication_type: ''
-        tag: ''
-      offset: 0
-      order: desc
-      page_type: event 
-    design:
-      view: card
-      columns: '2'
-
-  - block: collection
-    content:
-      title: Neuigkeiten 
-      subtitle:
-      text:
-      count: 2
-      filters:
-        author: ''
-        category: ''
-        exclude_featured: false
-        publication_type: ''
-        tag: ''
-      offset: 0
-      order: desc
-      page_type: post
-    design:
-      view: card
-      columns: '2'
-
-  - block: markdown
-    content:
-      title:
-      subtitle:
-      text: |
-        {{% cta cta_link="./people/" cta_text="Meet the trainer →" %}}
+        </details>
     design:
       columns: '1'
 ---

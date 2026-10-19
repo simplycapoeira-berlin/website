@@ -26,7 +26,7 @@
 {{- $orgId := printf "%s#organization"  site.BaseURL -}}
 {{- $kidsId   := printf "%s#course-kids"   site.BaseURL -}}
 {{- $adultsId := printf "%s#course-adults" site.BaseURL -}}
-{{- $faqId    := printf "%s#faq"           site.BaseURL -}}
+{{- $faqId    := printf "%s#faq"           .Permalink -}}
 {{- $description := or site.Params.description site.Params.marketing.seo.description -}}
 
 {{ if eq .Kind "home" }}
@@ -94,58 +94,36 @@
         }
       ],
       "location": [
+        {{- range $i, $l := hugo.Data.trainings.locations }}{{ if $i }},{{ end }}
         {
           "@type": "Place",
-          "name": "MELO – Marie-Elisabeth-Lüders-Oberschule",
+          "name": {{ printf "%s – %s" $l.key $l.name }},
           "address": {
             "@type": "PostalAddress",
-            "streetAddress": "Steinmetzstr. 79",
-            "postalCode": "10783",
+            "streetAddress": {{ $l.street }},
+            "postalCode": {{ $l.postal_code }},
             "addressLocality": "Berlin",
-            "addressRegion": "Schöneberg",
+            "addressRegion": {{ $l.district }},
             "addressCountry": "DE"
           },
+          {{- with $l.geo }}
           "geo": {
             "@type": "GeoCoordinates",
-            "latitude": 52.499238779432005,
-            "longitude": 13.36469710838366
+            "latitude": {{ .lat }},
+            "longitude": {{ .lon }}
           },
+          {{- end }}
           "openingHoursSpecification": [
-            { "@type": "OpeningHoursSpecification", "dayOfWeek": "Tuesday",  "opens": "17:00", "closes": "18:30", "description": "Kids training" },
-            { "@type": "OpeningHoursSpecification", "dayOfWeek": "Thursday", "opens": "17:00", "closes": "18:30", "description": "Kids training" },
-            { "@type": "OpeningHoursSpecification", "dayOfWeek": "Friday",   "opens": "20:00", "closes": "21:30", "description": "Adults training" }
-          ]
-        },
-        {
-          "@type": "Place",
-          "name": "KSG – Kurt-Schumacher-Grundschule",
-          "address": {
-            "@type": "PostalAddress",
-            "streetAddress": "Puttkamerstr. 19",
-            "postalCode": "10969",
-            "addressLocality": "Berlin",
-            "addressRegion": "Kreuzberg",
-            "addressCountry": "DE"
-          },
-          "openingHoursSpecification": [
-            { "@type": "OpeningHoursSpecification", "dayOfWeek": "Tuesday", "opens": "18:00", "closes": "19:30", "description": "Adults training" }
-          ]
-        },
-        {
-          "@type": "Place",
-          "name": "TAM – Interkulturelles Familienzentrum tam",
-          "address": {
-            "@type": "PostalAddress",
-            "streetAddress": "Wilhelmstr. 116–117",
-            "postalCode": "10963",
-            "addressLocality": "Berlin",
-            "addressRegion": "Mitte",
-            "addressCountry": "DE"
-          },
-          "openingHoursSpecification": [
-            { "@type": "OpeningHoursSpecification", "dayOfWeek": "Friday", "opens": "16:30", "closes": "18:00", "description": "Kids training" }
+            {{- $n := 0 }}
+            {{- range $s := where (partial "sc/sessions.html" dict) "location.key" $l.key }}
+            {{- $desc := cond (eq $s.group "kids") "Kids training" "Adults training" }}
+            {{- range .days }}{{ if $n }},{{ end }}{{ $n = add $n 1 }}
+            { "@type": "OpeningHoursSpecification", "dayOfWeek": {{ . }}, "opens": {{ $s.opens }}, "closes": {{ $s.closes }}, "description": {{ $desc }} }
+            {{- end }}
+            {{- end }}
           ]
         }
+        {{- end }}
       ]
     },
     {
@@ -169,56 +147,34 @@
         "availability": "https://schema.org/InStock"
       },
       "hasCourseInstance": [
+        {{- range $i, $s := partial "sc/sessions.html" (dict "group" "kids") }}{{ if $i }},{{ end }}
+        {{- $l := $s.location }}
         {
           "@type": "CourseInstance",
-          "name": "Capoeira Kids – MELO Schöneberg",
+          "name": {{ printf "Capoeira Kids – %s %s" $l.key ($l.area | default $l.district) }},
           "courseMode": "onsite",
           "courseSchedule": {
             "@type": "Schedule",
             "scheduleTimezone": "Europe/Berlin",
-            "byDay": ["Tuesday", "Thursday"],
-            "startTime": "17:00",
-            "endTime": "18:30",
+            "byDay": {{ $s.days }},
+            "startTime": {{ $s.opens }},
+            "endTime": {{ $s.closes }},
             "repeatFrequency": "P1W"
           },
           "location": {
             "@type": "Place",
-            "name": "Marie-Elisabeth-Lüders-Oberschule (upper gym)",
+            "name": {{ with $l.room }}{{ printf "%s (%s)" $l.name .en }}{{ else }}{{ $l.name }}{{ end }},
             "address": {
               "@type": "PostalAddress",
-              "streetAddress": "Steinmetzstr. 79",
-              "postalCode": "10783",
+              "streetAddress": {{ $l.street }},
+              "postalCode": {{ $l.postal_code }},
               "addressLocality": "Berlin",
-              "addressRegion": "Schöneberg",
-              "addressCountry": "DE"
-            }
-          }
-        },
-        {
-          "@type": "CourseInstance",
-          "name": "Capoeira Kids – TAM Mitte/Kreuzberg",
-          "courseMode": "onsite",
-          "courseSchedule": {
-            "@type": "Schedule",
-            "scheduleTimezone": "Europe/Berlin",
-            "byDay": ["Friday"],
-            "startTime": "16:30",
-            "endTime": "18:00",
-            "repeatFrequency": "P1W"
-          },
-          "location": {
-            "@type": "Place",
-            "name": "Interkulturelles Familienzentrum tam",
-            "address": {
-              "@type": "PostalAddress",
-              "streetAddress": "Wilhelmstr. 116–117",
-              "postalCode": "10963",
-              "addressLocality": "Berlin",
-              "addressRegion": "Mitte",
+              "addressRegion": {{ $l.district }},
               "addressCountry": "DE"
             }
           }
         }
+        {{- end }}
       ]
     },
     {
@@ -242,56 +198,34 @@
         "availability": "https://schema.org/InStock"
       },
       "hasCourseInstance": [
+        {{- range $i, $s := partial "sc/sessions.html" (dict "group" "adults") }}{{ if $i }},{{ end }}
+        {{- $l := $s.location }}
         {
           "@type": "CourseInstance",
-          "name": "Capoeira Adults – KSG Kreuzberg",
+          "name": {{ printf "Capoeira Adults – %s %s" $l.key ($l.area | default $l.district) }},
           "courseMode": "onsite",
           "courseSchedule": {
             "@type": "Schedule",
             "scheduleTimezone": "Europe/Berlin",
-            "byDay": ["Tuesday"],
-            "startTime": "18:00",
-            "endTime": "19:30",
+            "byDay": {{ $s.days }},
+            "startTime": {{ $s.opens }},
+            "endTime": {{ $s.closes }},
             "repeatFrequency": "P1W"
           },
           "location": {
             "@type": "Place",
-            "name": "Kurt-Schumacher-Grundschule (upper gym)",
+            "name": {{ with $l.room }}{{ printf "%s (%s)" $l.name .en }}{{ else }}{{ $l.name }}{{ end }},
             "address": {
               "@type": "PostalAddress",
-              "streetAddress": "Puttkamerstr. 19",
-              "postalCode": "10969",
+              "streetAddress": {{ $l.street }},
+              "postalCode": {{ $l.postal_code }},
               "addressLocality": "Berlin",
-              "addressRegion": "Kreuzberg",
-              "addressCountry": "DE"
-            }
-          }
-        },
-        {
-          "@type": "CourseInstance",
-          "name": "Capoeira Adults – MELO Schöneberg",
-          "courseMode": "onsite",
-          "courseSchedule": {
-            "@type": "Schedule",
-            "scheduleTimezone": "Europe/Berlin",
-            "byDay": ["Friday"],
-            "startTime": "20:00",
-            "endTime": "21:30",
-            "repeatFrequency": "P1W"
-          },
-          "location": {
-            "@type": "Place",
-            "name": "Marie-Elisabeth-Lüders-Oberschule (upper gym)",
-            "address": {
-              "@type": "PostalAddress",
-              "streetAddress": "Steinmetzstr. 79",
-              "postalCode": "10783",
-              "addressLocality": "Berlin",
-              "addressRegion": "Schöneberg",
+              "addressRegion": {{ $l.district }},
               "addressCountry": "DE"
             }
           }
         }
+        {{- end }}
       ]
     },
     {
@@ -299,62 +233,16 @@
       "@id": {{ $faqId }},
       "inLanguage": {{ site.Language.Lang }},
       "mainEntity": [
+        {{- range $i, $f := index hugo.Data.faq site.Language.Lang }}{{ if $i }},{{ end }}
         {
           "@type": "Question",
-          "name": "Where can I do Capoeira in Berlin?",
+          "name": {{ $f.q }},
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Simplesmente Capoeira Berlin e.V. trains at three locations in Berlin: MELO (Marie-Elisabeth-Lüders-Oberschule, Steinmetzstr. 79, 10783 Berlin-Schöneberg), KSG (Kurt-Schumacher-Grundschule, Puttkamerstr. 19, 10969 Berlin-Kreuzberg) and TAM (Interkulturelles Familienzentrum tam, Wilhelmstr. 116–117, 10963 Berlin-Mitte/Kreuzberg)."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Do you offer Capoeira for kids in Berlin?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Yes — we offer dedicated Capoeira classes for children in Berlin. Kids train Tuesday and Thursday 17:00–18:30 at MELO (Schöneberg) and Friday 16:30–18:00 at TAM (Mitte/Kreuzberg). Children typically join from around age 6. The first month of training is free."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Is the trial period really a whole month? (Probetraining)",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Yes — your first month of training (Probetraining) with us is free of charge, no registration and no prior experience required. Just come by during one of our regular training times."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Is Capoeira a martial art, a dance or movement and acrobatics?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Capoeira is all of these. It is an Afro-Brazilian art that combines movement, acrobatics, music, dance and martial arts in a single practice. In our Berlin classes you train coordination, strength, flexibility, rhythm and body awareness while learning the Ginga, kicks, esquivas and acrobatic floreios."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "What should I bring to my first Capoeira class?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Comfortable sports clothes (long pants are recommended), clean indoor sports shoes, a water bottle and a good mood. No special equipment is needed."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Do I need any prior experience to start Capoeira?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "No prior experience is required — we welcome complete beginners. You will learn the fundamentals (Ginga, Esquiva, basic kicks, music and songs) step by step in a friendly group."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "What languages are training held in?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Training is bilingual in German and English; Capoeira songs are sung in Portuguese."
+            "text": {{ partial "sc/faq_text.html" (dict "text" $f.a) }}
           }
         }
+        {{- end }}
       ]
     }
   ]
