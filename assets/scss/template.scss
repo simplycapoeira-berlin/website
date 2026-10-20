@@ -861,3 +861,176 @@ div.videowrapper {
 .home-section.light h2.sc-section-title {
   color: #000;
 }
+
+// Potluck page (blocks/sc_potluck.html) – /batizado-2026/essen-trinken/
+.sc-potluck {
+  .sc-lead {
+    max-width: 640px;
+  }
+}
+
+.sc-potluck__jump {
+  display: none;
+  margin-bottom: 1.5rem;
+}
+
+.sc-potluck__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.sc-potluck__list {
+  position: sticky;
+  top: 90px;
+  max-height: calc(100vh - 110px);
+  overflow-y: auto;
+  display: grid;
+  gap: 1rem;
+}
+
+.sc-potluck__card {
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 16px;
+  padding: 1.1rem 1.2rem;
+
+  h2 {
+    font-size: 1.2rem;
+    font-weight: 900;
+    margin: 0;
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    padding: 0.55rem 0;
+    border-top: 1px dashed #e5e5e5;
+    font-size: 0.9rem;
+    line-height: 1.35;
+
+    &:first-child {
+      border-top: 0;
+    }
+  }
+}
+
+.sc-potluck__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.sc-potluck__refresh {
+  background: none;
+  border: 1px solid #ddd;
+  border-radius: 999px;
+  padding: 0.25rem 0.7rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+
+  &:hover {
+    border-color: var(--sc-black);
+  }
+}
+
+.sc-potluck__dishes li {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  column-gap: 1rem;
+}
+
+.sc-potluck__food {
+  font-weight: 700;
+}
+
+.sc-potluck__who {
+  color: #666;
+  text-align: right;
+}
+
+.sc-potluck__note {
+  grid-column: 1 / -1;
+  color: #888;
+  font-size: 0.8rem;
+  font-style: italic;
+}
+
+.sc-potluck__orga li {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+
+  &.is-taken .sc-potluck__item::before {
+    content: '✓ ';
+    color: #2e7d32;
+    font-weight: 800;
+  }
+}
+
+.sc-potluck__pill {
+  flex: none;
+  background: var(--sc-yellow);
+  border-radius: 999px;
+  padding: 0.1rem 0.6rem;
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+
+.sc-potluck__muted {
+  color: #888;
+}
+
+.sc-potluck__sheet {
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+.sc-potluck__form {
+  scroll-margin-top: 90px;
+
+  h2 {
+    font-size: 1.2rem;
+    font-weight: 900;
+    margin: 0 0 0.75rem;
+  }
+
+  iframe {
+    display: block;
+    width: 100%;
+    height: 2050px;
+    border: 0;
+    border-radius: 16px;
+    background: #f1ecf9;
+    margin-bottom: 0.5rem;
+  }
+}
+
+@media (max-width: 991.98px) {
+  .sc-potluck__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sc-potluck__list {
+    position: static;
+    max-height: none;
+    overflow: visible;
+  }
+
+  .sc-potluck__jump {
+    display: inline-block;
+  }
+
+  .sc-potluck__form iframe {
+    height: 2300px;
+  }
+}
