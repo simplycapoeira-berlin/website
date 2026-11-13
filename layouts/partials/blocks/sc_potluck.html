@@ -1,0 +1,129 @@
+{{/* Potluck page: live "who brings what" list read from a public Google Sheet
+     (the form's response sheet) plus the embedded Google Form to add yourself.
+     The sheet must be shared as "Anyone with the link can view".
+     Copy and the list of orga options: front matter (content/{en,de}/batizado-2026-essen-trinken.md). */}}
+{{ $c := .wcBlock.content }}
+{{ $cfg := dict
+  "sheet" $c.sheet_id
+  "orga" $c.orga
+  "t" $c.labels
+}}
+<div class="sc-potluck">
+  {{ with $c.kicker }}<div class="sc-kicker">{{ . }}</div>{{ end }}
+  {{ with $c.title }}<h1 class="sc-title">{{ . }}</h1>{{ end }}
+  {{ with $c.lead }}<p class="sc-lead">{{ . | markdownify }}</p>{{ end }}
+
+  <a class="sc-btn sc-btn--dark sc-potluck__jump" href="#mitmachen">{{ $c.labels.jump }} ↓</a>
+
+  <div class="sc-potluck__grid">
+    <div class="sc-potluck__list">
+      <section class="sc-potluck__card">
+        <div class="sc-potluck__head">
+          <h2>{{ $c.labels.buffet }}</h2>
+          <button type="button" class="sc-potluck__refresh" data-refresh>↻ {{ $c.labels.refresh }}</button>
+        </div>
+        <ul class="sc-potluck__dishes" data-dishes>
+          <li class="sc-potluck__muted">{{ $c.labels.loading }}</li>
+        </ul>
+      </section>
+
+      <section class="sc-potluck__card">
+        <div class="sc-potluck__head"><h2>{{ $c.labels.orga }}</h2></div>
+        <ul class="sc-potluck__orga" data-orga></ul>
+      </section>
+
+      <p class="sc-potluck__sheet">
+        <a href="https://docs.google.com/spreadsheets/d/{{ $c.sheet_id }}/edit?usp=sharing" target="_blank" rel="noopener">{{ $c.labels.sheet }} ↗</a>
+      </p>
+    </div>
+
+    <div class="sc-potluck__form" id="mitmachen">
+      <h2>{{ $c.labels.form }}</h2>
+      <iframe src="{{ $c.form_url }}?embedded=true" title="{{ $c.labels.form }}" loading="lazy" data-form>…</iframe>
+      <p class="sc-potluck__sheet">
+        <a href="{{ $c.form_url }}" target="_blank" rel="noopener">{{ $c.labels.form_tab }} ↗</a>
+      </p>
+    </div>
+  </div>
+</div>
+
+<script type="application/json" id="sc-potluck-cfg">{{ $cfg | jsonify | safeJS }}</script>
+<script>
+(function () {
+  var cfg = JSON.parse(document.getElementById('sc-potluck-cfg').textContent);
+  var t = cfg.t;
+  var dishesEl = document.querySelector('[data-dishes]');
+  var orgaEl = document.querySelector('[data-orga]');
+
+  function el(tag, cls, text) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (text != null) e.textContent = text;
+    return e;
+  }
+  function cell(row, i) {
+    var c = i >= 0 ? row.c[i] : null;
+    return c && c.v != null ? String(c.v).trim() : '';
+  }
+
+  function render(table) {
+    var cols = table.cols.map(function (c) { return (c.label || '').toLowerCase(); });
+    var find = function (s) { return cols.findIndex(function (l) { return l.indexOf(s) === 0; }); };
+    var iName = find('name'), iFood = find('ich bringe'), iOrga = find('weitere orga'), iNote = find('anmerkung');
+    var rows = (table.rows || []).map(function (r) {
+      return { name: cell(r, iName), food: cell(r, iFood), orga: cell(r, iOrga), note: cell(r, iNote) };
+    }).filter(function (r) { return r.name || r.food; });
+
+    // Buffet
+    dishesEl.textContent = '';
+    var dishes = rows.filter(function (r) { return r.food; });
+    if (!dishes.length) dishesEl.appendChild(el('li', 'sc-potluck__muted', t.empty));
+    dishes.forEach(function (r) {
+      var li = el('li');
+      li.appendChild(el('span', 'sc-potluck__food', r.food));
+      li.appendChild(el('span', 'sc-potluck__who', r.name));
+      if (r.note) li.appendChild(el('span', 'sc-potluck__note', r.note));
+      dishesEl.appendChild(li);
+    });
+
+    // Orga checklist: match each known option inside the (comma-joined) answer.
+    orgaEl.textContent = '';
+    (cfg.orga || []).forEach(function (o) {
+      var who = rows.filter(function (r) { return r.orga.indexOf(o.key) !== -1; })
+                    .map(function (r) { return r.name; });
+      var li = el('li', who.length ? 'is-taken' : 'is-open');
+      li.appendChild(el('span', 'sc-potluck__item', o.label));
+      li.appendChild(who.length ? el('span', 'sc-potluck__who', who.join(', '))
+                                : el('span', 'sc-potluck__pill', t.open));
+      orgaEl.appendChild(li);
+    });
+  }
+
+  function load() {
+    var cb = 'scPotluck' + Date.now();
+    var s = document.createElement('script');
+    window[cb] = function (res) {
+      delete window[cb]; s.remove();
+      if (res && res.status === 'ok') render(res.table); else fail();
+    };
+    s.onerror = fail;
+    s.src = 'https://docs.google.com/spreadsheets/d/' + cfg.sheet +
+            '/gviz/tq?tqx=responseHandler:' + cb + '&_=' + Date.now();
+    document.body.appendChild(s);
+  }
+  function fail() {
+    dishesEl.textContent = '';
+    dishesEl.appendChild(el('li', 'sc-potluck__muted', t.error));
+  }
+
+  document.querySelector('[data-refresh]').addEventListener('click', load);
+
+  // The form iframe loads again after "Submit": refresh the list so people see themselves.
+  var loads = 0;
+  document.querySelector('[data-form]').addEventListener('load', function () {
+    if (++loads > 1) { setTimeout(load, 2500); setTimeout(load, 8000); }
+  });
+
+  load();
+})();
+</script>
